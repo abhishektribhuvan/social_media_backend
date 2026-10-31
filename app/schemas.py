@@ -59,7 +59,7 @@ class Post(basePost):
     model_config = ConfigDict(from_attributes=True)
 
 
-# vote
+# classvote
 class PostOut(BaseModel):
     Post: Post
     votes: int
