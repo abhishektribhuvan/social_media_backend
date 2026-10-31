@@ -13,15 +13,16 @@ from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI()
-origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
-    "http://localhost",
-    "http://localhost:8080",
-    "https://www.google.com"
-]
+origins = ["*"]
+# [
+#     "http://localhost.tiangolo.com",
+#     "https://localhost.tiangolo.com",
+#     "http://localhost",
+#     "http://localhost:8080",
+#     "https://www.google.com"
+# ]
 
-#for all websites then just do [*]
+#for all websites then just do ["*"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
