@@ -1,18 +1,28 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.engine import URL
+from sqlalchemy.engine import URL, make_url
 from .config import settings
+import os
 
 # SQLALCHEMY_DATABASE_URL = "postgresql://postgres:@Abhi1234@localhost/posta"
-SQLALCHEMY_DATABASE_URL = URL.create(
-    drivername="postgresql+psycopg",
-    username=settings.database_username,
-    password=settings.database_password,
-    host=settings.database_hostname,
-    port=settings.database_port,
-    database=settings.database,
-)
+
+render_url = os.getenv("DATABASE_URL")
+
+if render_url:
+    SQLALCHEMY_DATABASE_URL = make_url(
+        render_url
+    ).set(drivername="postgresql+psycopg")
+else:
+    SQLALCHEMY_DATABASE_URL = URL.create(
+        drivername="postgresql+psycopg",
+        username=settings.database_username,
+        password=settings.database_password,
+        host=settings.database_hostname,
+        port=settings.database_port,
+        database=settings.database
+    )
+
 # SQLALCHEMY_DATABASE_URL = "postgresql://postgres:@Abhi1234@localhost/posta"
 
 engine = create_engine(
