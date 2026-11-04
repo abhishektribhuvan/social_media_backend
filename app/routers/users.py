@@ -17,6 +17,10 @@ async def create_user(user: schemas.Create_user, db: Session = Depends(get_db)):
     user.password = hashed_password
 
     new_user = model.User(**user.model_dump())
+    post = db.query(model.User).filter(model.User.email == new_user.email).first()
+    if post:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="user already exist")
+    
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
