@@ -25,7 +25,7 @@ def vote(
             status_code=status.HTTP_404_NOT_FOUND, detail="post does not exist"
         )
 
-    if vote.vote is 1:
+    if vote.vote == 1:
         if check_vote.first():
             raise HTTPException(status_code=status.HTTP_409_CONFLICT)
 
