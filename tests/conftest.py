@@ -11,7 +11,7 @@ def test_user(client):
         "/user", json={"email": "abhi2asdf8@gmail.com", "password": "234sdf"}
     )
     new_user = res.json()
-    
+
     # new_user = schemas.user_created(**res.json())
     return new_user
 
@@ -32,11 +32,8 @@ def authorize_client(client, token):
 @pytest.fixture
 def test_post(authorize_client):
     res = authorize_client.post(
-        "/posts",
-        json={"content": "content", "title": "title", "published": False}
+        "/posts", json={"content": "content", "title": "title", "published": False}
     )
 
     assert res.status_code == 201
     return res.json()
-
-

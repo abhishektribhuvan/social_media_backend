@@ -32,6 +32,7 @@ def test_get_all_post(authorize_client):
 
 # test get post
 
+
 def test_get_post(authorize_client, test_post):
     id = test_post["id"]
 
@@ -53,7 +54,9 @@ def test_delete_post(authorize_client, test_post):
         ("sdfwd", "wefcdfew", False, 202),
     ],
 )
-def test_update_post(authorize_client, test_post, content, title, published, status_code):
+def test_update_post(
+    authorize_client, test_post, content, title, published, status_code
+):
     id = test_post["id"]
     res = authorize_client.put(
         f"/posts/{id}",
@@ -65,6 +68,7 @@ def test_update_post(authorize_client, test_post, content, title, published, sta
     )
     print("lasttt")
     assert res.status_code == status_code
+
 
 # test test all posts
 def test_unauth_get_all_post(client):

@@ -17,9 +17,7 @@ def vote(
     check_vote = db.query(model.Votes).filter(
         model.Votes.post_id == vote.post_id, model.Votes.user_id == current_user.id
     )
-    check_post = db.query(model.Post).filter(
-        model.Post.id == vote.post_id
-    )
+    check_post = db.query(model.Post).filter(model.Post.id == vote.post_id)
     # post = db.query(model.Votes).filter(model.Votes.post_id == vote.post_id)
 
     if not check_post.first():
