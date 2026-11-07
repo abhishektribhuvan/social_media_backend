@@ -21,7 +21,7 @@ jobs:
         image: postgres:16-alpine
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          POSTGRES_PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
           POSTGRES_DB: backend_testing_db
         ports:
           - 5432:5432
