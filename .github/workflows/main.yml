@@ -79,4 +79,4 @@ jobs:
 
     steps:
       - name: deploying stuff
-        run: scho "going to deploy"
+        run: echo "going to deploy"
