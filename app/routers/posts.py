@@ -38,7 +38,9 @@ async def create_post(
 
 
 # Get_All_Posts
-@router.get("/", response_model=List[schemas.PostOut])
+@router.get(
+    "/", response_model=List[schemas.PostOut], status_code=status.HTTP_202_ACCEPTED
+)
 # @router.get("/")
 def all_posts(
     db: Session = Depends(get_db),
@@ -70,7 +72,9 @@ def all_posts(
 
 
 # Get_one_Post
-@router.get("/{id}", response_model=schemas.PostOut)
+@router.get(
+    "/{id}", response_model=schemas.PostOut, status_code=status.HTTP_202_ACCEPTED
+)
 def show_post(id: int, db: Session = Depends(get_db)):
     # cursor.execute("""select * from social_posts where id = %s""",(id))
     # post = cursor.fetchone()
@@ -82,16 +86,18 @@ def show_post(id: int, db: Session = Depends(get_db)):
         )
 
     results = (
-            db.query(model.Post, func.count(model.Votes.post_id).label("votes"))
-            .join(model.Votes, model.Votes.post_id == model.Post.id, isouter=True)
-            .group_by(model.Post.id).filter(model.Post.id == id).first()
-        )
+        db.query(model.Post, func.count(model.Votes.post_id).label("votes"))
+        .join(model.Votes, model.Votes.post_id == model.Post.id, isouter=True)
+        .group_by(model.Post.id)
+        .filter(model.Post.id == id)
+        .first()
+    )
     print(results)
     return results
 
 
 # Delete_post
-@router.delete("/{id}")
+@router.delete("/{id}", status_code=status.HTTP_205_RESET_CONTENT)
 def delete_post(
     id: int,
     db: Session = Depends(get_db),
@@ -125,7 +131,7 @@ def delete_post(
 
 
 # Update_Post
-@router.put("/{id}")
+@router.put("/{id}", status_code=status.HTTP_202_ACCEPTED)
 def update_post(
     id: int,
     post: schemas.UpdatePost,

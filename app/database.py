@@ -10,9 +10,7 @@ import os
 render_url = os.getenv("DATABASE_URL")
 
 if render_url:
-    SQLALCHEMY_DATABASE_URL = make_url(
-        render_url
-    ).set(drivername="postgresql+psycopg")
+    SQLALCHEMY_DATABASE_URL = make_url(render_url).set(drivername="postgresql+psycopg")
 else:
     SQLALCHEMY_DATABASE_URL = URL.create(
         drivername="postgresql+psycopg",
@@ -20,7 +18,7 @@ else:
         password=settings.database_password,
         host=settings.database_hostname,
         port=settings.database_port,
-        database=settings.database
+        database=settings.database,
     )
 
 # SQLALCHEMY_DATABASE_URL = "postgresql://postgres:@Abhi1234@localhost/posta"

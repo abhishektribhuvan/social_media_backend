@@ -8,8 +8,8 @@ from .config import settings
 
 from fastapi.middleware.cors import CORSMiddleware
 
-#model.Base.metadata.create_all(bind=engine)
-#neeede when manually making the tables from alembic
+# model.Base.metadata.create_all(bind=engine)
+# neeede when manually making the tables from alembic
 
 
 app = FastAPI()
@@ -22,13 +22,13 @@ origins = ["*"]
 #     "https://www.google.com"
 # ]
 
-#for all websites then just do ["*"]
+# for all websites then just do ["*"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],#specific methods allow
-    allow_headers=["*"],#for specific head allow
+    allow_methods=["*"],  # specific methods allow
+    allow_headers=["*"],  # for specific head allow
 )
 
 app.include_router(posts.router)

@@ -15,11 +15,14 @@ def vote(
     current_user: int = Depends(oauth2.get_current_user),
 ):
     check_vote = db.query(model.Votes).filter(
-            model.Votes.post_id == vote.post_id, model.Votes.user_id == current_user.id
-        )
-    #post = db.query(model.Votes).filter(model.Votes.post_id == vote.post_id)
+        model.Votes.post_id == vote.post_id, model.Votes.user_id == current_user.id
+    )
+    check_post = db.query(model.Post).filter(
+        model.Post.id == vote.post_id
+    )
+    # post = db.query(model.Votes).filter(model.Votes.post_id == vote.post_id)
 
-    if not check_vote.first():
+    if not check_post.first():
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="post does not exist"
         )

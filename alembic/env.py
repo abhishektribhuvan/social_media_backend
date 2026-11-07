@@ -24,9 +24,7 @@ from app.database import SQLALCHEMY_DATABASE_URL
 
 config.set_main_option(
     "sqlalchemy.url",
-    SQLALCHEMY_DATABASE_URL.render_as_string(
-        hide_password=False
-    ).replace("%", "%%")
+    SQLALCHEMY_DATABASE_URL.render_as_string(hide_password=False).replace("%", "%%"),
 )
 
 # Interpret the config file for Python logging.
@@ -84,9 +82,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()
