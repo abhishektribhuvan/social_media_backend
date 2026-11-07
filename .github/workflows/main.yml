@@ -3,7 +3,7 @@ name: Build and deploy code
 on: [push, pull_request]
 
 jobs:
-  job1:
+  Build:
     runs-on: ubuntu-latest
 
     env:
@@ -50,25 +50,33 @@ jobs:
       - name: Test with pytest
         run: pytest
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: abhishektribhuvan8
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      # - name: Login to Docker Hub
+      #   uses: docker/login-action@v3
+      #   with:
+      #     username: abhishektribhuvan8
+      #     password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v3
 
-      - name: Build and push Docker image
-        id: docker_build
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: abhishektribhuvan8/fastapi_backend:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+      # - name: Build and push Docker image
+      #   id: docker_build
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: .
+      #     file: ./Dockerfile
+      #     push: true
+      #     tags: abhishektribhuvan8/fastapi_backend:latest
+      #     cache-from: type=gha
+      #     cache-to: type=gha,mode=max
 
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+      # - name: Image digest
+      #   run: echo ${{ steps.docker_build.outputs.digest }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build] # all jobs run parallel so to make them in series we use this 
+
+    steps:
+      - name: deploying stuff
+        run: scho "going to deploy"
