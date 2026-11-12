@@ -105,7 +105,7 @@ fastapi_backend/
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/abhishektribhuvan/social_media_backend.git
    cd fastapi_backend
    ```
 
