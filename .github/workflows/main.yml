@@ -75,7 +75,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [build] # all jobs run parallel so to make them in series we use this 
+    needs: [build] # needs make somthing run before this all jobs run parallel so to make them in series we use this 
 
     steps:
       - name: deploying stuff

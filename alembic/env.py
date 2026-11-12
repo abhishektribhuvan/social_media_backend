@@ -1,9 +1,4 @@
-from logging.config import fileConfig
-
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-from app.model import Base
-from app.config import settings
+from logging.config import fileConfig 
 from sqlalchemy.engine import URL
 from alembic import context
 
